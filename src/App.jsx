@@ -34,7 +34,7 @@ function generateTransactionBody(ledger, insertObj, deleteObj = null) {
 }
 
 function issueQuery(queryBody, apiKey) {
-  return axios.post('/query', queryBody, {
+  return axios.post('https://data.flur.ee/fluree/query', queryBody, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: apiKey,
@@ -98,7 +98,7 @@ function App() {
     }
     const transaction = generateTransactionBody(ledger, formState, deleteObj);
     return axios
-      .post('/transact', transaction, {
+      .post('https://data.flur.ee/fluree/transact', transaction, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: apiKey,

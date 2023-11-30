@@ -5,15 +5,15 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      '/query': {
-        target: 'https://data.flur.ee/fluree',
-        changeOrigin: true,
-      },
-      '/transact': {
-        target: 'https://data.flur.ee/fluree',
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   '/query': {
+    //     target: 'https://data.flur.ee/fluree',
+    //     changeOrigin: true,
+    //   },
+    //   '/transact': {
+    //     target: 'https://data.flur.ee/fluree',
+    //     changeOrigin: true,
+    //   },
+    // },
   },
 });
