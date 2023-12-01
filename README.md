@@ -6,7 +6,7 @@
 
 By default, this application is configured to run with read-only permissions against a Sandbox Nexus dataset. You will be able to view data in the UI, but you will not be able to add or edit the entities on-screen. If you update the `.env` file with configuration to work with your own dataset, you can easily enable not only **read** behavior but **write** behavior through this app as well.
 
-If you've created a [Nexus account](https://data.flur.ee/) and any initial dataset, this app can be easily configured to run against that dataset with an API key generated through the [Nexus Settings UI](https://developers.flur.ee/docs/nexus/datasets/settings/).
+If you've created a [Nexus account](https://data.flur.ee/) and any initial dataset, this app can be easily configured to run against that dataset with an API key generated through the [Nexus Settings UI](https://developers.flur.ee/docs/nexus/datasets/settings/). You can find your `ledger-id` as the value associated with the `ledger` key in the Quick Start Guide notebook automatically generated when you create a dataset.
 
 > **Note**: You'll want to first try working with your dataset's Quick Start Notebook to add some initial data that this application can leverage!
 
