@@ -5,6 +5,7 @@ import './App.css';
 import { Table } from './Table';
 import { Modal } from './Modal';
 import { Header } from './Header';
+import Notification from './Notification';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const ledger = import.meta.env.VITE_LEDGER;
@@ -34,7 +35,7 @@ function generateTransactionBody(ledger, insertObj, deleteObj = null) {
 }
 
 function issueQuery(queryBody, apiKey) {
-  return axios.post('/query', queryBody, {
+  return axios.post('https://data.flur.ee/fluree/query', queryBody, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: apiKey,
@@ -47,6 +48,7 @@ function App() {
   const [newEntityOpen, setNewEntityOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [selected, setSelected] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
   const [formState, setFormState] = useState({
     '@id': '',
     '@type': '',
@@ -98,11 +100,12 @@ function App() {
     }
     const transaction = generateTransactionBody(ledger, formState, deleteObj);
     return axios
-      .post('/transact', transaction, {
+      .post('https://data.flur.ee/fluree/transact', transaction, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: apiKey,
         },
+        timeout: 3500,
       })
       .then(() => {
         setNewEntityOpen(false);
@@ -114,7 +117,20 @@ function App() {
           friends: [],
         });
       })
-      .then(() => refreshData());
+      .then(() => refreshData())
+      .catch((error) => {
+        console.log(error);
+        setNewEntityOpen(false);
+        setFormState({
+          '@id': '',
+          '@type': '',
+          name: '',
+          age: '',
+          friends: [],
+        });
+        setIsEdit(false);
+        setShowNotification(true);
+      });
   };
 
   const handleEdit = (entity) => {
@@ -152,6 +168,9 @@ function App() {
           setSelected,
           handleSubmit,
         }}
+      />
+      <Notification
+        {...{ show: showNotification, setShow: setShowNotification }}
       />
     </>
   );
