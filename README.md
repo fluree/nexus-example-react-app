@@ -2,6 +2,8 @@
 
 #### This Vite + React App is a simple example of how to use Fluree Nexus with Frontend Application Clients.
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/fluree/nexus-example-react-app?file=md!README.md)
+
 ## Getting Started
 
 By default, this application is configured to run with read-only permissions against a Sandbox Nexus dataset. You will be able to view data in the UI, but you will not be able to add or edit the entities on-screen. If you update the `.env` file with configuration to work with your own dataset, you can easily enable not only **read** behavior but **write** behavior through this app as well.
