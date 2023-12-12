@@ -1,7 +1,5 @@
 import requests
-import json
 import pandas as pd
-import pprint as pp
 
 # Read CSV file into a pandas DataFrame
 csv_file_path = 'data/hapiscore_whr.csv'
@@ -13,6 +11,7 @@ data_rows = df.iloc[1:, :]
 
 # Convert to dictionary
 result = {}
+
 for _, row in data_rows.iterrows():
     country = row[0]
     for i in range(1, len(row)):
@@ -21,27 +20,31 @@ for _, row in data_rows.iterrows():
         if year not in result:
             result[year] = []
         result[year].append({"country": country, "year": year, "score": score})
-# Print the result
+
+
+delete = {}
 for year, entries in result.items():
     print(f"Year {year}:")
-    dataset_id = "fluree-jld/387028092977976"
-    api_key = "zlTg5tm0ZQAqH6ZiKYbYN-KukRR0_rpp4II9n_P3eErAgh_T82G--7XygevycEbVzzEgyCGoepsTCOWHbQkf6Q"
+    dataset_id = "fluree-jld/387028092977980"
+    api_key = "hDmX3gXF8N8dSGYQ80Wn2o9-_3oSSJUdU2n-uaQjGnxlmH_gEXeLKGunKu4fJ5Dwb_7kYAP7-34b1DHC_Lo-Gg"
 
     transaction = {
         "ledger": dataset_id,
+        "delete": delete,
+        "@context": {},
         "insert": result[year],
     }
+
+    delete = result[year]
 
     url = "https://data.flur.ee/fluree/transact"  # change to local host
     headers = {
         "Content-Type": "application/json",
         "Authorization": api_key,
+        'Accept': 'text/plain'
     }
 
-    try:
-        response = requests.post(url, headers=headers,
-                                 json=transaction)
-        data = response.json()
-        print(data)
-    except Exception as e:
-        print(e)
+    response = requests.post(url, headers=headers,
+                             json=transaction)
+    data = response.json()
+    print(data)
